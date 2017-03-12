@@ -1,5 +1,5 @@
 
-#################################Libraries#######################################
+#################################Libraries############################################
 library(fpp)
 library(Hmisc)
 library(dynlm)
@@ -71,7 +71,9 @@ qqnorm(data_grouped$MEMBERSHIP,main="TRAVEL")
 hist(data_grouped$Members_Per_Event,main="Members_Event")
 boxplot(data_grouped$MEMBERSHIP,main="Members_Event")
 qqnorm(data_grouped$MEMBERSHIP,main="Members_Event")
+
 #######################################after trasformation #########################################
+
 hist(log_data$MEMBERSHIP,main="MEMBERSHIP",xlab = "log(x+3/8)")
 hist((log_data$EDUCATION)*0.61,main="EDUCATION",xlab = "log(x+3/8)")
 hist(log_data$FUN,main="FUN",xlab = "log(x+3/8)")
@@ -79,7 +81,8 @@ hist(log_data$COMSERV,main="COMSERV",xlab = "log(x+3/8)")
 hist(log_data$AWARDS,main="AWARDS",xlab = "log(x+3/8)")
 hist((log_data$RIT)*0.404,main="RIT",xlab = "log(x+3/8)")
 hist(log_data$TRAVEL,main="TRAVEL",xlab = "log(x+3/8)")
-######################################Time serries data##############################
+
+######################################Time serries data#############################################
 
 data_grouped=read.table("trasformed_data_grouped.txt",header=TRUE)
 View(data_grouped)
@@ -93,7 +96,9 @@ data_analysis=subset(data_grouped,select=-c(Year,Month,Members_Per_Event))
 log_data=log(data_analysis+3/8)
 View(log_data)
 data_analysis_ts=ts(log_data,start=c(2012,1),frequency=12)
-######################################boot strapping#######################
+
+
+######################################boot strapping###################################################
 #                 data_grouped1=subset(data_grouped,select=-c(Month,Year))        
 #                 colnames(data_grouped1)
 #
@@ -104,7 +109,7 @@ data_analysis_ts=ts(log_data,start=c(2012,1),frequency=12)
 #
 #                 boot_data=boot(data_grouped1,log_data_grouped,R=1000,stype='w')
 #                 boot.array()
-#############################################################################
+#########################################################################################################
 
 data_analysis=log(data_analysis+1)
 data_analysis_ts_TRAVEL=(data_analysis_ts[,"TRAVEL"])
@@ -115,10 +120,13 @@ data_analysis_ts_FUN=(data_analysis_ts[,"FUN"])
 data_analysis_ts_EDUCATION=(data_analysis_ts[,"EDUCATION"])
 data_analysis_ts_MEMBERSHIP=(data_analysis_ts[,"MEMBERSHIP"])
 
-####################################Creating a matrix##############################################
+####################################Creating a matrix####################################################
+
 analysis_matrix=data.matrix(log_data, rownames.force = NA)
 colnames(analysis_matrix)
-#######################################Graphics###############################################
+
+#######################################Graphics###########################################################
+
 par(bg="gray")
 plot(data_analysis_ts)
 title(main="DeMolay Organiation")
@@ -128,7 +136,7 @@ theme(legend.title=element_blank())
 png("C:\\Users\\DELL\\Desktop\\R and python\\Project\\Plots\\DeMolay_time_series.png")
 
 
-######################################################################################
+###########################################################################################################
 TRAVEL=diff(log_data$TRAVEL)
 acf2(TRAVEL)
 plot(TRAVEL)
@@ -166,7 +174,7 @@ MEMBERSHIP=diff(log_data$MEMBERSHIP)
 acf2(MEMBERSHIP)
 plot(MEMBERSHIP)
 auto.arima(MEMBERSHIP)
-#####################################Augumented Dickey Fuller Test#################
+#####################################  Augumented Dickey Fuller Test##########################################
 
 adf.test(log_data$MEMBERSHIP,alternative = "stationary")
 adf.test(log_data$EDUCATION,alternative = "stationary")
@@ -177,11 +185,11 @@ adf.test(log_data$RIT,alternative = "stationary")
 adf.test(log_data$TRAVEL,alternative = "stationary")
 
 
-########################################################################################
+#############################################################################################################
 
-                 #MODEL BUILDING -VECTOR AUTO REGRESSION#
+                                   # MODEL BUILDING -VECTOR AUTO REGRESSION
 
-#######################################################################################
+##############################################################################################################
 VARselect(log_data, lag.max = 20, type = "const" ,exogen=analysis_matrix) 
 var_result=VAR(y,type = c("const", "trend", "both", "none"),p=2,exogen =analysis_matrix,ic = c("AIC", "HQ", "SC", "FPE"))
 
@@ -202,5 +210,5 @@ var_restrict_ser$restrictions
 
 var_restrict_man=restricthist(var_result,method="manual",thresh=2)
 var_restrict_man$restrictions
-########################################################################################
+##########################################################################################################################
 

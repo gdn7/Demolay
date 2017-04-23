@@ -15,10 +15,8 @@ library(geoR)
 library(grDevices)
 attach(mtcars)
 ####################################setting up Directory###################################
-
 getwd()
 setwd("C:\\Users\\DELL\\Desktop\\R and python\\Project")
-
 ######################################Time serries data####################################
 
 data_grouped=read.table("trasformed_data_grouped.txt",header=TRUE)

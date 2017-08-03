@@ -12,3 +12,8 @@ Results of Objective 1 :
 4. Fun events drop by 10 percent due to events relate to Awards.
 5. Events on education decrease by 12 percent and 13 percent due to events on ritual on  previous  two  months.Community  service  events  are  likely  to  increase  by  93 percent  due  to  education  events. Also,events  on  education  increase  by  23  percent due to educational events on the previous two months. Membership decreases by 56 percent due to educational events.
 6. Membership events drop down by 31 percent due to events on travel. 
+
+
+Results of Objective 2 :
+
+correlation  between  membership  tenure  and demographic/geographic  data,  we  can  conclude  that  there  is  little  significance between tenure and geographic location of members’ homes

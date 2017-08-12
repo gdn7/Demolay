@@ -2,7 +2,7 @@
 
 f_summary <- function(data_to_plot)
 {
-## univariate data summary
+ ## univariate data summary
 require(nortest)
 #data <- as.numeric(scan ("data.txt")) #commenting out by mike
 data <- na.omit(as.numeric(as.character(data_to_plot))) #added by mike
